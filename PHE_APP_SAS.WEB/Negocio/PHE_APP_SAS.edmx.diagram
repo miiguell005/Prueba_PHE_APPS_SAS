@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d12d0e1963784a73be07126df06692ec" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.Carrera" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.Categoria" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.Curso" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.CursoPersona" Width="1.5" PointX="5.25" PointY="1.625" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.Modalidad" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.Persona" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="PHE_APPS_SASModel.TipoCurso" Width="1.5" PointX="0.75" PointY="7.375" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_Curso_Carrera" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_Curso_Categoria" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_Curso_Modalidad" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_Curso_TipoCurso" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_CursoPersona_Curso" />
+        <AssociationConnector Association="PHE_APPS_SASModel.FK_CursoPersona_Persona" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

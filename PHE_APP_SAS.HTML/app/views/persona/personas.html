@@ -1,0 +1,79 @@
+﻿<div>
+    <div class="">
+        <div class="col-md-12">
+            <button class="btn btn-primary" ng-click="$ctrl.irAtras()">Átras</button>
+            <div class="text-center">
+                <h1>Personas</h1>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <br />
+            <div class="col-md-12">
+                <a class="btn btn-primary" href="#!persona/0"><i class="fa fa-plus" aria-hidden="true"></i> Crear persona</a>
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th width="80px"></th>
+                            <th><b>Nombre</b></th>
+                            <th><b>Apellido</b></th>
+                            <!--<th><b>Fecha de nacimiento</b></th>-->
+                            <th><b>Cursos</b></th>
+                            <!--<th><b>Eliminado</b></th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in $ctrl.personas" ng-class="p.Eliminado && {'danger':true}">
+                            <td>
+                                <a class="btn btn-default " href="#!persona/{{p.IdPersona}}" uib-tooltip="Editar persona" tooltip-placement="Top">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                                <button class="btn btn-default" ng-click="$ctrl.eliminarPersona(p)" uib-tooltip="Eliminar persona" tooltip-placement="Top">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                            <td>{{p.Nombre}}</td>
+                            <td>{{p.Apellido}}</td>
+                            <!--<td>{{p.FechaNacimiento | date:'dd/MM/yyyy'}}</td>-->
+                            <td>
+                                <table class="table table-bordered table-striped table-hover table-condensed" ng-if=" p.CursoPersona.length > 0">
+                                    <thead>
+                                        <tr>
+                                            <th>Dicta</th>
+                                            <th>Curso</th>
+                                            <th>Modalidad</th>
+                                            <th>Duración</th>
+                                            <th>Tipo Curso</th>
+                                            <th>Categoria</th>
+                                            <th>Carrera</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cp in p.CursoPersona">
+                                            <td>
+                                                <span ng-if="cp.DictaCurso">Si</span>
+                                                <span ng-if="!cp.DictaCurso">No</span>
+                                            </td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].Nombre}}</td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].Modalidad.Nombre}}</td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].Duracion}}</td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].TipoCurso.Nombre}}</td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].Categoria.Nombre}}</td>
+                                            <td>{{$ctrl.cursos[cp.IdCurso].Carrera.Nombre}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <!--<td>{{p.Eliminado}}</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

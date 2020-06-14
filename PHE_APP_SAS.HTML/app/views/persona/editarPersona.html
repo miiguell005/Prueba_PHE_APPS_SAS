@@ -1,0 +1,137 @@
+﻿<div class="">
+    <div class="col-md-12">
+        <button class="btn btn-primary" ng-click="$ctrl.irAtras()">Átras</button>
+        <div class="text-center">
+            <h1>{{$ctrl.titulo}}</h1>
+        </div>
+    </div>
+    <form name="myForm">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <label>Nombre *</label>
+                <input class="form-control" type="text" ng-model="$ctrl.persona.Nombre" maxlength="255" required />
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.Nombre">
+                    <span class="mensaje-error">El nombre es obligatorio</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Apellido *</label>
+                <input class="form-control" type="text" ng-model="$ctrl.persona.Apellido" maxlength="255" required />
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.Apellido">
+                    <span class="mensaje-error">El apellido es obligatorio</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <label>Fecha de nacimiento *</label>
+                <input class="form-control" type="date" id="start" ng-model="$ctrl.persona.FechaNacimiento" required>
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.FechaNacimiento">
+                    <span class="mensaje-error">La fecha de nacimiento es obligatoria</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Lugar de nacimiento *</label>
+                <input class="form-control" type="text" ng-model="$ctrl.persona.LugarNacimiento" maxlength="255" required />
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.LugarNacimiento">
+                    <span class="mensaje-error">El lugar de nacimiento es obligatorio</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <br />
+            <div class="col-md-6">
+                <label>Lugar de residencia *</label>
+                <input class="form-control" type="text" ng-model="$ctrl.persona.LugarResidencia" required />
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.LugarResidencia">
+                    <span class="mensaje-error">El lugar de residencia es obligatoria</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Genero *</label>
+                <select class="form-control" ng-model="$ctrl.persona.Genero" ng-options="t for t in $ctrl.genero"></select>
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.Genero">
+                    <span class="mensaje-error">Es necesario seleccionar un genero</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <br />
+            <div class="col-md-6">
+                <label>Hobbies *</label>
+                <textarea class="form-control" ng-model="$ctrl.persona.Hobbies" required></textarea>
+                <div ng-if="$ctrl.guardarOprimido && !$ctrl.persona.Hobbies">
+                    <span class="mensaje-error">El hobbie es requerido</span>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <!--=========== Sección donde se agregan mas cursos ==================-->
+        <div class="col-md-12" ng-repeat="cp in $ctrl.persona.CursoPersona" ng-if="!cp.Eliminado">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <select class="form-control" ng-model="cp.IdCurso" ng-change="$ctrl.cursoSeleccionado(cp)" ng-options="t.IdCurso as t.Nombre for t in $ctrl.cursos"></select>
+                            <div ng-if="$ctrl.guardarOprimido && !cp.IdCurso">
+                                <span class="mensaje-error">Es necesario seleccionar un curso</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-1 text-right">
+                            <button type="button" class="btn btn-primary" ng-click="$ctrl.eliminarCurso(cp)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="cp.DictaCurso">
+                                Es docente del curso
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Carrera</b> {{cp.cursos.Carrera.Nombre}}
+                        </div>
+                        <div class="col-md-12">
+                            <b> Modalidad</b> {{cp.cursos.Duracion}}
+                        </div>
+                        <div class="col-md-12">
+                            <b>Categoría</b> {{cp.cursos.Categoria.Nombre}}
+                        </div>
+                        <div class="col-md-12">
+                            <b> Modalidad</b> {{cp.cursos.Modalidad.Nombre}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-primary" ng-click="$ctrl.agregarCurso()">
+                <div class="panel-heading text-center">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Agregar curso
+                </div>
+            </div>
+        </div>
+        <!--=========== Fin Sección donde se agregan mas cursos ==================-->
+
+        <div class="col-md-12">
+            <div class="text-center">
+                <br />
+                <button class="btn btn-primary" ng-click="$ctrl.guardar()">Guardar</button>
+                <br />
+                <br />
+            </div>
+        </div>
+    </form>
+</div>

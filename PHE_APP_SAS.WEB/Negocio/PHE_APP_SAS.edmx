@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PHE_APPS_SASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="IdCarrera" />
+          </Key>
+          <Property Name="IdCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IdCurso" />
+          </Key>
+          <Property Name="IdCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdModalidad" Type="int" Nullable="false" />
+          <Property Name="IdTipoCurso" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="IdCarrera" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Duracion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CursoPersona">
+          <Key>
+            <PropertyRef Name="IdCursoPersona" />
+          </Key>
+          <Property Name="IdCursoPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCurso" Type="int" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+          <Property Name="DictaCurso" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modalidad">
+          <Key>
+            <PropertyRef Name="IdModalidad" />
+          </Key>
+          <Property Name="IdModalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LugarNacimiento" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LugarResidencia" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Genero" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Hobbies" Type="varchar(max)" Nullable="false" />
+          <Property Name="Eliminado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoCurso">
+          <Key>
+            <PropertyRef Name="IdTipoCurso" />
+          </Key>
+          <Property Name="IdTipoCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Curso_Carrera">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="IdCarrera" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Modalidad">
+          <End Role="Modalidad" Type="Self.Modalidad" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalidad">
+              <PropertyRef Name="IdModalidad" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdModalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_TipoCurso">
+          <End Role="TipoCurso" Type="Self.TipoCurso" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCurso">
+              <PropertyRef Name="IdTipoCurso" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdTipoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoPersona_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="CursoPersona" Type="Self.CursoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="CursoPersona">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoPersona_Persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="CursoPersona" Type="Self.CursoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="CursoPersona">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_clasificacionGenero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_rangoEdades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PHE_APPS_SASModelStoreContainer">
+          <EntitySet Name="Carrera" EntityType="Self.Carrera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CursoPersona" EntityType="Self.CursoPersona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modalidad" EntityType="Self.Modalidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCurso" EntityType="Self.TipoCurso" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Curso_Carrera" Association="Self.FK_Curso_Carrera">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Categoria" Association="Self.FK_Curso_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Modalidad" Association="Self.FK_Curso_Modalidad">
+            <End Role="Modalidad" EntitySet="Modalidad" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_TipoCurso" Association="Self.FK_Curso_TipoCurso">
+            <End Role="TipoCurso" EntitySet="TipoCurso" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoPersona_Curso" Association="Self.FK_CursoPersona_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoPersona" EntitySet="CursoPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoPersona_Persona" Association="Self.FK_CursoPersona_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="CursoPersona" EntitySet="CursoPersona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PHE_APPS_SASModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PHE_APPS_SASEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carrera" EntityType="PHE_APPS_SASModel.Carrera" />
+          <EntitySet Name="Categoria" EntityType="PHE_APPS_SASModel.Categoria" />
+          <EntitySet Name="Curso" EntityType="PHE_APPS_SASModel.Curso" />
+          <EntitySet Name="CursoPersona" EntityType="PHE_APPS_SASModel.CursoPersona" />
+          <EntitySet Name="Modalidad" EntityType="PHE_APPS_SASModel.Modalidad" />
+          <EntitySet Name="Persona" EntityType="PHE_APPS_SASModel.Persona" />
+          <EntitySet Name="TipoCurso" EntityType="PHE_APPS_SASModel.TipoCurso" />
+          <AssociationSet Name="FK_Curso_Carrera" Association="PHE_APPS_SASModel.FK_Curso_Carrera">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Categoria" Association="PHE_APPS_SASModel.FK_Curso_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Modalidad" Association="PHE_APPS_SASModel.FK_Curso_Modalidad">
+            <End Role="Modalidad" EntitySet="Modalidad" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_TipoCurso" Association="PHE_APPS_SASModel.FK_Curso_TipoCurso">
+            <End Role="TipoCurso" EntitySet="TipoCurso" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoPersona_Curso" Association="PHE_APPS_SASModel.FK_CursoPersona_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoPersona" EntitySet="CursoPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoPersona_Persona" Association="PHE_APPS_SASModel.FK_CursoPersona_Persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="CursoPersona" EntitySet="CursoPersona" />
+          </AssociationSet>
+          <FunctionImport Name="sp_rangoEdades" ReturnType="Collection(PHE_APPS_SASModel.sp_rangoEdades_Result)" />
+          <FunctionImport Name="sp_clasificacionGenero" ReturnType="Collection(PHE_APPS_SASModel.sp_clasificacionGenero_Result)" />
+        </EntityContainer>
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="IdCarrera" />
+          </Key>
+          <Property Name="IdCarrera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="PHE_APPS_SASModel.FK_Curso_Carrera" FromRole="Carrera" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="PHE_APPS_SASModel.FK_Curso_Categoria" FromRole="Categoria" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="IdCurso" />
+          </Key>
+          <Property Name="IdCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdModalidad" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoCurso" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="IdCarrera" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carrera" Relationship="PHE_APPS_SASModel.FK_Curso_Carrera" FromRole="Curso" ToRole="Carrera" />
+          <NavigationProperty Name="Categoria" Relationship="PHE_APPS_SASModel.FK_Curso_Categoria" FromRole="Curso" ToRole="Categoria" />
+          <NavigationProperty Name="Modalidad" Relationship="PHE_APPS_SASModel.FK_Curso_Modalidad" FromRole="Curso" ToRole="Modalidad" />
+          <NavigationProperty Name="TipoCurso" Relationship="PHE_APPS_SASModel.FK_Curso_TipoCurso" FromRole="Curso" ToRole="TipoCurso" />
+          <NavigationProperty Name="CursoPersona" Relationship="PHE_APPS_SASModel.FK_CursoPersona_Curso" FromRole="Curso" ToRole="CursoPersona" />
+        </EntityType>
+        <EntityType Name="CursoPersona">
+          <Key>
+            <PropertyRef Name="IdCursoPersona" />
+          </Key>
+          <Property Name="IdCursoPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCurso" Type="Int32" Nullable="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="DictaCurso" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="PHE_APPS_SASModel.FK_CursoPersona_Curso" FromRole="CursoPersona" ToRole="Curso" />
+          <NavigationProperty Name="Persona" Relationship="PHE_APPS_SASModel.FK_CursoPersona_Persona" FromRole="CursoPersona" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Modalidad">
+          <Key>
+            <PropertyRef Name="IdModalidad" />
+          </Key>
+          <Property Name="IdModalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="PHE_APPS_SASModel.FK_Curso_Modalidad" FromRole="Modalidad" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LugarNacimiento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LugarResidencia" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Genero" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Hobbies" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Eliminado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CursoPersona" Relationship="PHE_APPS_SASModel.FK_CursoPersona_Persona" FromRole="Persona" ToRole="CursoPersona" />
+        </EntityType>
+        <EntityType Name="TipoCurso">
+          <Key>
+            <PropertyRef Name="IdTipoCurso" />
+          </Key>
+          <Property Name="IdTipoCurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="PHE_APPS_SASModel.FK_Curso_TipoCurso" FromRole="TipoCurso" ToRole="Curso" />
+        </EntityType>
+        <Association Name="FK_Curso_Carrera">
+          <End Type="PHE_APPS_SASModel.Carrera" Role="Carrera" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="IdCarrera" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Categoria">
+          <End Type="PHE_APPS_SASModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Modalidad">
+          <End Type="PHE_APPS_SASModel.Modalidad" Role="Modalidad" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modalidad">
+              <PropertyRef Name="IdModalidad" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdModalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_TipoCurso">
+          <End Type="PHE_APPS_SASModel.TipoCurso" Role="TipoCurso" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoCurso">
+              <PropertyRef Name="IdTipoCurso" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="IdTipoCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoPersona_Curso">
+          <End Type="PHE_APPS_SASModel.Curso" Role="Curso" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.CursoPersona" Role="CursoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="IdCurso" />
+            </Principal>
+            <Dependent Role="CursoPersona">
+              <PropertyRef Name="IdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoPersona_Persona">
+          <End Type="PHE_APPS_SASModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="PHE_APPS_SASModel.CursoPersona" Role="CursoPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="CursoPersona">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_rangoEdades_Result">
+          <Property Type="Int32" Name="C0_y_10_años" Nullable="true" />
+          <Property Type="Int32" Name="C10_y_20_años" Nullable="true" />
+          <Property Type="Int32" Name="C30_y_50_años" Nullable="true" />
+          <Property Type="Int32" Name="Mayores_50_años" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_clasificacionGenero_Result">
+          <Property Type="Int32" Name="Femenino" Nullable="true" />
+          <Property Type="Int32" Name="Masculino" Nullable="true" />
+          <Property Type="Int32" Name="Otro" Nullable="true" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PHE_APPS_SASModelStoreContainer" CdmEntityContainer="PHE_APPS_SASEntities">
+          <EntitySetMapping Name="Carrera">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.Carrera">
+              <MappingFragment StoreEntitySet="Carrera">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCarrera" ColumnName="IdCarrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdCarrera" ColumnName="IdCarrera" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdTipoCurso" ColumnName="IdTipoCurso" />
+                <ScalarProperty Name="IdModalidad" ColumnName="IdModalidad" />
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CursoPersona">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.CursoPersona">
+              <MappingFragment StoreEntitySet="CursoPersona">
+                <ScalarProperty Name="DictaCurso" ColumnName="DictaCurso" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+                <ScalarProperty Name="IdCursoPersona" ColumnName="IdCursoPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modalidad">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.Modalidad">
+              <MappingFragment StoreEntitySet="Modalidad">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdModalidad" ColumnName="IdModalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="LugarResidencia" ColumnName="LugarResidencia" />
+                <ScalarProperty Name="LugarNacimiento" ColumnName="LugarNacimiento" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCurso">
+            <EntityTypeMapping TypeName="PHE_APPS_SASModel.TipoCurso">
+              <MappingFragment StoreEntitySet="TipoCurso">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdTipoCurso" ColumnName="IdTipoCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rangoEdades" FunctionName="PHE_APPS_SASModel.Store.sp_rangoEdades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PHE_APPS_SASModel.sp_rangoEdades_Result">
+                <ScalarProperty Name="C0_y_10_años" ColumnName="0 y 10 años" />
+                <ScalarProperty Name="C10_y_20_años" ColumnName="10 y 20 años" />
+                <ScalarProperty Name="C30_y_50_años" ColumnName="30 y 50 años" />
+                <ScalarProperty Name="Mayores_50_años" ColumnName="Mayores 50 años" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_clasificacionGenero" FunctionName="PHE_APPS_SASModel.Store.sp_clasificacionGenero">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PHE_APPS_SASModel.sp_clasificacionGenero_Result">
+                <ScalarProperty Name="Femenino" ColumnName="Femenino" />
+                <ScalarProperty Name="Masculino" ColumnName="Masculino" />
+                <ScalarProperty Name="Otro" ColumnName="Otro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

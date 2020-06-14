@@ -1,0 +1,49 @@
+﻿<div>
+    <div class="">
+        <div class="col-md-12">
+            <button class="btn btn-primary" ng-click="$ctrl.irAtras()">Átras</button>
+            <div class="text-center">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive">
+                <h2>Cantidad de personas clasificadas por rangos de edades</h2>
+                <table class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th><b>Rango</b></th>
+                            <th><b>Cantidad</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="u in $ctrl.rangoEdades">
+                            <td>{{u.Nombre}}</td>
+                            <td>{{u.Cantidad}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive">
+                <h2>Clasificación de personas por género.</h2>
+                <table class="table table-bordered table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th><b>Genero</b></th>
+                            <th><b>Cantidad</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="u in $ctrl.ClasificacionGenero">
+                            <td>{{u.Nombre}}</td>
+                            <td>{{u.Cantidad}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
